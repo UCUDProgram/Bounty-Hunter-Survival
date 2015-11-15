@@ -9,11 +9,18 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 	private BountySurvival BHGame;
 	private SpriteBatch batch;
-	
-	
+	private Mole player1;
+	private List zombieList;
+	private int waveNumber;
+	private float screenWidth, screenHeight;
 	
 	public BountyGame(BountySurvival game){
 		BHGame = game;
@@ -22,8 +29,23 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		screenHeight = Gdx.graphics.getHeight();
+		screenWidth = Gdx.graphics.getWidth();
+		double playerStartX = screenWidth / 2;
+		double playerStartY = screenHeight / 2;
+		player1 = new Mole(playerStartX, playerStartY);
+		
 	}
 
+	
+	public void updateZombieGenerator(){
+		
+	}
+	
+	public void drawPlayer(){
+		batch.draw(player1.getPlayerImage(),(float) (player1.getxPosition()),(float) (player1.getyPosition()),(float) ((player1.getPlayerImage().getWidth() * player1.getMoleScale()) ),(float) ((player1.getPlayerImage().getHeight() * player1.getMoleScale())) ); 
+	}
+	
 	
 	@Override
 	public void render(float delta) {
@@ -31,6 +53,11 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 		batch.begin();
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		
+		
+//		Drawing the game components
+		drawPlayer();
 		
 		batch.end();
 	}	

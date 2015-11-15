@@ -4,8 +4,11 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
@@ -17,6 +20,7 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 	private BitmapFont font;
 	private int pageCounter;
 	private String instruction, instruction1;
+	private Texture character;
 	
 	
 	public BountyIntro(BountySurvival game){
@@ -34,6 +38,8 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		screenHeight = Gdx.graphics.getHeight(); 
 		screenWidth = Gdx.graphics.getWidth();
 		Gdx.input.setInputProcessor(this);
+		FileHandle file = Gdx.files.internal("Mole/Mole-Right.png");
+		character = new Texture(file);
 		
 	}
 	
@@ -119,32 +125,47 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		}
 		
 		else if(pageTwo){
-			instruction = "Page Two Instructions";
+			instruction = "Use the Arrow keys to move Up, down, left or right";
+			instruction1 = "Touch Controls are oriented around the player's location"; 
 //			System.out.println("Page Two Instructions shown");
 		}
 		
 		else if(pageThree){
-			instruction = "Page Three Instructions";
+			instruction = "Touch the player to fire his gun";
+			instruction1 = "Beware some enemies might need more than one bullet";
 //			System.out.println("Page Three Instructions shown");
 		}
-		else if(pageThree){
-			instruction = "Page Three Instructions";
+		else if(pageFour){
+			instruction = "You have one Life, use it well";
+			instruction1 = "You're health does not regenerate";
 //			System.out.println("Page Three Instructions shown");
 		}
-		else if(pageThree){
-			instruction = "Page Three Instructions";
-//			System.out.println("Page Three Instructions shown");
-		}
-		else if(pageThree){
-			instruction = "Page Three Instructions";
+		else if(pageFive){
+			instruction = "Enemies will appear and move randomly";
+			instruction1 = "Be careful, some enemies won't hurt you much " + 
+			"while others will really hurt you.";
 //			System.out.println("Page Three Instructions shown");
 		}
 		else {
-			instruction = "Page Four Instructions";
-//			System.out.println("Page Four Instructions shown");
+			instruction = "Survival is not Guaranteed";
+			instruction1 = "If You do survive, Riches and Fame await";
+//			System.out.println("Page Three Instructions shown");
 		}
-		font.draw(batch,instruction, screenWidth / 3, screenHeight -50);
+	
+//		font.draw(batch,instruction, screenWidth / 3, screenHeight -50);
+		font.drawMultiLine(batch, instruction, 10, screenHeight -50, screenWidth - 10,HAlignment.LEFT);
+		font.drawMultiLine(batch, instruction1, 10, 50, screenWidth - 10,HAlignment.LEFT);
 		
+		if (pageTwo){
+			batch.draw(character, (float) (screenWidth * .4), (float) (screenHeight * .4), (float) (screenWidth * .20), (float) (screenHeight * .20) ); 
+//			font.draw(batch, str, (float) (screenWidth * .45), y)
+			font.drawWrapped(batch, "Left of player --> Move Left",(float) (screenWidth * .15), screenHeight / 2, screenWidth / 4);
+			font.drawWrapped(batch, "Right of the player --> Move Right",(float) (screenWidth * .60), screenHeight / 2, screenWidth / 4);
+			font.drawWrapped(batch, "Below the player--> Move Down",(float) (screenWidth * .4), (float) (screenHeight * .35), screenWidth / 4);
+			font.drawWrapped(batch, "Above the player--> Move Up",(float) (screenWidth * .4), (float) (screenHeight * .70), screenWidth / 4);
+
+		
+		}
 		
 		
 		batch.end();
@@ -159,6 +180,14 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
+		
+		if(pageSix){
+			BGame.switchScreens(2);
+		}
+		
+		updatePageBooleans(pageCounter);
+		pageCounter++;
+		
 		return false;
 	}
 
@@ -177,6 +206,14 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
+		
+		if(pageSix){
+			BGame.switchScreens(2);
+		}
+		
+		updatePageBooleans(pageCounter);
+		pageCounter++;
+		
 		return false;
 	}
 
