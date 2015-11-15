@@ -28,7 +28,9 @@ public class TitleScreen implements Screen, InputProcessor, ApplicationListener 
 	private Skin skin;
 	
 	
-	
+	/*
+	 * Constructor for the Title Screen Class
+	 */
 	public TitleScreen(BountySurvival game){
 		BHGame = game;
 	}
@@ -68,8 +70,10 @@ public class TitleScreen implements Screen, InputProcessor, ApplicationListener 
 		stage.draw();
 	}
 	
+	/*
+	 *  Adds the Main Menu button to the Title Screen 
+	 */
 	public void addMenuButton(){
-		
 		final TextButton button = new TextButton("Main Menu",skin);
 		button.setName("Main Menu");
 		table.add(button).width(button.getWidth()*scaleX).height(button.getHeight()*scaleY);
@@ -81,7 +85,6 @@ public class TitleScreen implements Screen, InputProcessor, ApplicationListener 
 			}
 		});
 	}
-	
 	
 	@Override
 	public boolean keyDown(int keycode) {
@@ -136,45 +139,35 @@ public class TitleScreen implements Screen, InputProcessor, ApplicationListener 
 	@Override
 	public void render() {
 		// TODO Auto-generated method stub
-		
 	}
+	
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
-	
-	
-	
 }

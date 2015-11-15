@@ -22,6 +22,9 @@ public class Mole {
 	private double moleScale;
 	private double moveDist = 10;
 	
+	/*
+	 * Constructor for the Mole Player Class
+	 */
 	public Mole(double xPos, double yPos){
 		xPosition = xPos;
 		yPosition = yPos;
@@ -32,7 +35,11 @@ public class Mole {
 		setPlayerImage();
 		
 	}
-
+/*
+ * Sets the Mole Player's Images, based on their direction
+ * Uses an xml file to parse through the file system and select the proper images
+ * in an efficient manner.
+ */
 	public List<Texture> setPlayerImages(){
 		List<Texture> playImg = new ArrayList <Texture>();
 		try{Element root = new XmlReader().parse(Gdx.files.internal("gameImages.xml"));
@@ -49,6 +56,12 @@ public class Mole {
 		return playImg;
 	}
 
+	/*
+	 * Updates the x position of the mole player
+	 * Takes in a boolean to indicate direction 
+	 * True boolean --> move to the right
+	 * False boolean --> move to the left
+	 */
 	public void updateXPos(boolean hor){
 		if(hor)
 			xPosition += moveDist;
@@ -56,6 +69,12 @@ public class Mole {
 			xPosition -= moveDist;
 	}
 	
+	/*
+	 * Updates the y position of the mole player
+	 * Takes in a boolean to indicate direction 
+	 * True boolean --> move up
+	 * False boolean --> move down
+	 */
 	public void updateYPos(boolean vert){
 		if(vert)
 			yPosition += moveDist;
@@ -63,14 +82,17 @@ public class Mole {
 			yPosition -= moveDist;
 	}
 	
+	/*
+	 * Update the image of the mole
+	 * Used to show proper direction of the mole as the game is being played
+	 */
 	public void updateMoleImage(){
 		int newImgRef= direction;
 		Texture img = getPlayerImages().get(newImgRef);
 		setNewPlayerImage(img);
 	}
 	
-	
-//	Getters & Setters for Mole
+//	Getters & Setters for Mole Player
 	public double getxPosition() {
 		return xPosition;
 	}

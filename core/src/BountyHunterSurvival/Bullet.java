@@ -19,6 +19,10 @@ public class Bullet {
 	private double bullSpeed, bullSpeedBase, bulletScale;
 	private Texture bulletImage;
 	
+	
+	/*
+	 * Constructor for the Bullet Class
+	 */
 	public Bullet(double xPos, double yPos, int dir){
 		xPosition = xPos;
 		yPosition = yPos;
@@ -31,6 +35,9 @@ public class Bullet {
 		bulletScale = .25f;
 	}
 
+	/*
+	 * Updates the Bullet's X Position, in both directions.
+	 */
 	public void updateXPosition(){
 		if (direction == 0)
 			xPosition += (bullSpeed * bullSpeedBase);
@@ -38,6 +45,9 @@ public class Bullet {
 			xPosition -= (bullSpeed * bullSpeedBase);
 	}
 	
+	/*
+	 * Updates the Bullet's Y Position, in both directions.
+	 */
 	public void updateYPosition(){
 		if (direction == 2)
 			yPosition +=  (bullSpeed * bullSpeedBase);
@@ -45,6 +55,9 @@ public class Bullet {
 			yPosition -=  (bullSpeed * bullSpeedBase);
 	}
 	
+	/*
+	 * Sets the Bullet's Image, in relation to the direction that the bullet will travel in
+	 */
 	public Texture setBulletImage(){
 		List<Texture> bulletImg = new ArrayList <Texture>();
 		try{Element root = new XmlReader().parse(Gdx.files.internal("gameImages.xml"));
@@ -100,6 +113,5 @@ public class Bullet {
 
 	public double getBulletScale() {
 		return bulletScale;
-	}
-	
+	}	
 }

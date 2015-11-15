@@ -34,7 +34,10 @@ public class BountySurvival extends Game {
 		current.render(0);
 	}
 	
-public void switchScreens(int next){
+	/*
+	 * Sets the screens, for easy navigation by the player, in the game
+	 */
+	public void switchScreens(int next){
 		
 		// Title Screen
 		if(next==1){
@@ -68,13 +71,13 @@ public void switchScreens(int next){
 		setScreen(current);
 	}
 
-public String getPlayer() {
-	return player;
-}
+	public String getPlayer() {
+		return player;
+	}
 
-public void setPlayer(String player) {
-	this.player = player;
-}
+	public void setPlayer(String player) {
+		this.player = player;
+	}
 
 
 

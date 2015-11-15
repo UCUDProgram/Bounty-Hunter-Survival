@@ -24,7 +24,9 @@ public class MainMenu implements Screen, InputProcessor, ApplicationListener {
 	private Stage stage;
 	private Texture character;
 	
-	
+	/* 
+	 * Constructor for the main Menu class
+	 */
 	public MainMenu(BountySurvival game){
 		BHGame = game;
 	}
@@ -62,7 +64,10 @@ public class MainMenu implements Screen, InputProcessor, ApplicationListener {
 		stage.draw();
 	}
 
-	
+	/*
+	 * Add the Play button button on the Main Menu Screen
+	 *  Used to get to the game, by the player
+	 */
 	public void addPlayButton(){
 		final TextButton button = new TextButton("Play",skin);
 		button.setName("Play");
@@ -76,6 +81,11 @@ public class MainMenu implements Screen, InputProcessor, ApplicationListener {
 		});
 	}
 	
+	/*
+	 * Add the Story button button on the Main Menu Screen
+	 *  Used to get to game Background Information, by the player
+	 *  Information includes the story Background, basic controls and words of wisdom in the game
+	 */
 	public void addStoryButton(){
 		final TextButton button = new TextButton("Story Background",skin);
 		button.setName("Story Background");
@@ -88,10 +98,6 @@ public class MainMenu implements Screen, InputProcessor, ApplicationListener {
 			}
 		});
 	}
-	
-	
-	
-	
 	
 	@Override
 	public boolean keyDown(int keycode) {
@@ -144,46 +150,35 @@ public class MainMenu implements Screen, InputProcessor, ApplicationListener {
 	@Override
 	public void render() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
-	}
-
-	
-	
-	
+	}	
 }

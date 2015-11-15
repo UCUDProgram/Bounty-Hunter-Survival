@@ -22,7 +22,9 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 	private String instruction, instruction1;
 	private Texture character;
 	
-	
+	/*
+	 * Constructor for the Bounty Intro class
+	 */
 	public BountyIntro(BountySurvival game){
 		BGame = game;
 	}
@@ -43,6 +45,9 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		
 	}
 	
+	/*
+	 * Initialize the booleans, which correlate to the navigation screens for player information.
+	 */
 	public void booleanInitial(){
 		pageOne = true;
 		pageTwo = false;
@@ -52,6 +57,9 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		pageSix = false;
 	}
 	
+	/*
+	 * Sets the booleans, necessary to show the second page of instructions in the Intro Class
+	 */
 	public void pageTwoInstruct(){
 		pageOne = false;
 		pageTwo = true;
@@ -61,6 +69,9 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		pageSix = false;
 	}
 	
+	/*
+	 * Sets the booleans, necessary to show the third page of instructions in the Intro Class
+	 */
 	public void pageThreeInstruct(){
 		pageOne = false;
 		pageTwo = false;
@@ -70,6 +81,9 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		pageSix = false;
 	}
 	
+	/*
+	 * Sets the booleans, necessary to show the fourth page of instructions in the Intro Class
+	 */
 	public void pageFourInstruct(){
 		pageOne = false;
 		pageTwo = false;
@@ -79,6 +93,9 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		pageSix = false;
 	}
 	
+	/*
+	 * Sets the booleans, necessary to show the fifth page of instructions in the Intro Class
+	 */
 	public void pageFiveInstruct(){
 		pageOne = false;
 		pageTwo = false;
@@ -88,6 +105,9 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		pageSix = false;
 	}
 
+	/*
+	 * Sets the booleans, necessary to show the sixth page of instructions in the Intro Class
+	 */
 	public void pageSixInstruct(){
 		pageOne = false;
 		pageTwo = false;
@@ -96,7 +116,9 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		pageFive = false;
 		pageSix = true;
 	}
-	
+	/*
+	 * Updates the Page booleans, necessary to show the correct page of instructions in the Intro Class
+	 */
 	public void updatePageBooleans(int current){
 		if (current == 0)
 			pageTwoInstruct();
@@ -109,7 +131,6 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 		if (current == 4)
 			pageSixInstruct();
 		}
-	
 	
 	@Override
 	public void render(float delta) {
@@ -163,10 +184,7 @@ public class BountyIntro implements Screen, InputProcessor, ApplicationListener{
 			font.drawWrapped(batch, "Right of the player --> Move Right",(float) (screenWidth * .60), screenHeight / 2, screenWidth / 4);
 			font.drawWrapped(batch, "Below the player--> Move Down",(float) (screenWidth * .4), (float) (screenHeight * .35), screenWidth / 4);
 			font.drawWrapped(batch, "Above the player--> Move Up",(float) (screenWidth * .4), (float) (screenHeight * .70), screenWidth / 4);
-
-		
 		}
-		
 		
 		batch.end();
 	}

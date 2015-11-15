@@ -26,10 +26,13 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 	private boolean goLeft, goRight, goUp, goDown, bulletShoot;
 	private List<Bullet> bullets;
 	private List <Zombie> zombies;
-	private long startTime,endTime, newZombie;
+	private long startTime,endTime, newZombie, current;
+	private double zomGenSpeed;
 	
 	
-	
+	/*
+	 * Constructor for the Bounty Game Class
+	 */
 	public BountyGame(BountySurvival game){
 		BHGame = game;
 	}
@@ -56,6 +59,9 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 
 	
 //						ADDRESSES THE PLAYER'S MOVEMENT BEHAVIOR
+	/*
+	 * Initializes the movement Variables of the Player Character
+	 */
 	public void initializeMovement(){
 		goLeft = false;
 		goRight = false;
@@ -63,11 +69,13 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 		goDown = false;
 	}
 	
+	/*
+	 * Update the X Positon of the player, in this class
+	 */
 	public void updatePlayerXPos(){
 		if(goRight&&player1.getxPosition()<=(screenWidth - (player1.getPlayerImage().getWidth()* player1.getMoleScale() ) ) ){
 			player1.updateXPos(true);
-			player1.updateMoleImage();
-			
+			player1.updateMoleImage();		
 		}
 		if(goLeft&&player1.getxPosition() >=0 ){
 			player1.updateXPos(false);
@@ -75,6 +83,9 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 		}
 	}
 	
+	/*
+	 * Updates the Y Position of the player, in this class
+	 */
 	public void updatePlayerYPos(){
 		if(goUp&&player1.getyPosition()<=(screenHeight - (player1.getPlayerImage().getWidth()* player1.getMoleScale() ) ) ){
 			player1.updateYPos(true);
@@ -86,6 +97,9 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 		}
 	}
 	
+	/*
+	 * Updates the player's Direction, in this class
+	 */
 	public void updatePlayerDirection(){
 		if (goRight)
 			player1.direction =0 ;
@@ -111,16 +125,26 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 //		}
 //		}
 	
+	/*
+	 * Updates each bullet's x position 
+	 */
 	public void updateBulletsXPos(){
 		for(int i=0; i<bullets.size();i++)
 			bullets.get(i).updateXPosition();
 	}
 	
+	/*
+	 * Updates each bullet's y position
+	 */
 	public void updateBulletsYPos(){
 		for(int i=0; i<bullets.size();i++)
 			bullets.get(i).updateYPosition();
 	}
 	
+	/*
+	 * Updates the Bullet's list, and removes undesired bullets
+	 * Not implemented, but will be used in future updates.
+	 */
 	public void updateBulletsList(){
 		if(bullets != null){
 			for(int i=0; i<bullets.size();i++){
@@ -135,7 +159,9 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 				}
 		}
 	}
-	
+	/*
+	 * Used in initialization of a single bullet
+	 */
 	public void bulletInitialization(){
 		double xPos = player1.getxPosition();
 		double yPos = player1.getyPosition();
@@ -144,28 +170,34 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 		System.out.println("The size of the bullet list is " + bullets.size() );
 	}
 	
-	
-	
+	/*
+	 * Draws each bullet in the list, on the game Screen
+	 */
 	public void drawBullets(){
-			if(bullets!=null){
-				for(int i=0;i<bullets.size();i++)
-					batch.draw(bullets.get(i).getBulletImage(),(float) (bullets.get(i).getxPosition() ), (float) (bullets.get(i).getyPosition()  ), (float) (bullets.get(i).getBulletImage().getWidth() * bullets.get(i).getBulletScale()  ), (float) (bullets.get(i).getBulletImage().getHeight() * bullets.get(i).getBulletScale() ) );
-		
-//			aBullet.bulletDraw(aBullet);
+		if(bullets!=null){
+			for(int i=0;i<bullets.size();i++)
+				batch.draw(bullets.get(i).getBulletImage(),(float) (bullets.get(i).getxPosition() ), (float) (bullets.get(i).getyPosition()  ), (float) (bullets.get(i).getBulletImage().getWidth() * bullets.get(i).getBulletScale()  ), (float) (bullets.get(i).getBulletImage().getHeight() * bullets.get(i).getBulletScale() ) );
 		}
 	}
+	
+	
 //	public void bulletDraw(Bullet abullet){
 //		batch.draw(abullet.getBulletImage(),(float) (abullet.getxPosition() ), (float) (abullet.getyPosition()  ), (float) (abullet.getBulletImage().getWidth()  ), (float) (abullet.getBulletImage().getHeight()  ) );
 //	
 //	}
 	
-	
+	/*
+	 * Used to create instances of zombies, assuming that creation would be on the fly.
+	 */
 	public void zombieCreator(){
 		long currentTime = System.currentTimeMillis();
 		if ( ((currentTime - startTime) % newZombie ) == 0)
 			ZombieGenerator();
 	}
 //					ADDRESSSES THE CREATION OF ZOMBIES
+	/*
+	 * Used to create a zombie and add it to the zombie List
+	 */
 	public void ZombieGenerator(){
 		int zombieGen = (int) (Math.random() * 5) + 1;
 		int start = WallGenerator();
@@ -175,12 +207,18 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 		zombies.add(newZomb);
 	}
 	
-	
+	/*
+	 * Used to assign a starting wall, the zombie will come from
+	 */
 	public int WallGenerator(){
 		int loc = (int) Math.random() * 4;
 		return loc;
 	}
 	
+	/*
+	 * Used to set the x Position of the Zombie, based on the wall they are starting from.
+	 * Consumes a wall ID number and produces the x coordinate of the zombie
+	 */
 	public double zombieXStart(int wallID ){
 		if (wallID == 0) 
 			return 0;
@@ -190,6 +228,10 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 			return screenWidth;
 	}
 	
+	/*
+	 * Used to set the y Position of the Zombie, based on the wall they are starting from.
+	 * Consumes a wall ID number and produces the y coordinate of the zombie
+	 */
 	public double zombieYStart(int wallID ){
 		if (wallID == 3) 
 			return 0;
@@ -199,18 +241,44 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 			return screenHeight;
 	}
 	
+	/*
+	 * Sets the Direction of the Zombie and the updated image
+	 */
 	public void updateZombiesDirection(){
 		for(int i=0;i < zombies.size(); i++){
 			zombies.get(i).updateZombieMovement();
 			zombies.get(i).updateZombieImage();
 		}
 	}
+	/*
+	 * Generates a timer representing a soft timer for when a zombie is to partake in random movements
+	 * Long represents the time between changing directions
+	 */
+	public long generateTimer(){
+		int gen = (int) (Math.random() * 500);
+		return (long) (gen * 500);
+	}
 	
+	/*
+	 * Generates a timer representing when a new szombie is to be introduced in the game.
+	 */
+	public void newZombie(){
+		int zombDuration = (int) ( (Math.random() * 1000) * zomGenSpeed);
+		newZombie = (long) ( zombDuration * Math.random() * 4);
+	}
+	
+	/*
+	 * Determines how many zombies will be generated in a level
+	 * Provided that the zombies are generated in the beginning of the level
+	 */
 	public void InitializeZombieList(){
-		int zombieCount = (int) (Math.random() * (levelNumber * 15));
+		int zombieCount;
+		do {
+		zombieCount = (int) (Math.random() * (levelNumber * 15));
 		for(int i = 0; i < zombieCount; i++)
 			ZombieGenerator();
-	}
+	} while (zombieCount < (levelNumber * 5) );
+	} 
 	
 //	public void updateZombieMovement(){
 //		do{
@@ -222,15 +290,24 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 //	}
 	
 //						DRAWS THE COMPONENTS ON THE SCREEN
+	/*
+	 * Drawws the Player on the Screen
+	 */
 	public void drawPlayer(){
 		batch.draw(player1.getPlayerImage(),(float) (player1.getxPosition()),(float) (player1.getyPosition()),(float) ((player1.getPlayerImage().getWidth() * player1.getMoleScale()) ),(float) ((player1.getPlayerImage().getHeight() * player1.getMoleScale())) ); 
 	}
 	
 	
+	/*
+	 * Draws each zombie on the screen
+	 * Provided that they are active
+	 */
 	public void drawZombies(){
-		for (Zombie aZombie: zombies)
-		batch.draw(aZombie.getZombieImage(),(float) (aZombie.getZombieXPos()),(float) (aZombie.getZombieYPos()),(float) ((aZombie.getZombieImage().getWidth() * aZombie.getZombieScale()) ),(float) ((aZombie.getZombieImage().getHeight() * aZombie.getZombieScale())) ); 
-	}
+		for (Zombie aZombie: zombies){
+			if(aZombie.isActive())
+				batch.draw(aZombie.getZombieImage(),(float) (aZombie.getZombieXPos()),(float) (aZombie.getZombieYPos()),(float) ((aZombie.getZombieImage().getWidth() * aZombie.getZombieScale()) ),(float) ((aZombie.getZombieImage().getHeight() * aZombie.getZombieScale())) ); 
+		}
+		}
 	
 	
 	@Override
@@ -251,6 +328,8 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 		updatePlayerYPos();
 		updatePlayerDirection();
 		
+		
+		
 		for(int i = 0; i < zombies.size() ;i++){
 			if (zombies.get(i).isActive()){
 			zombies.get(i).updateZombieMovement();
@@ -261,6 +340,7 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 		
 //		Drawing the game components
 		drawPlayer();
+		
 		drawZombies();
 		drawBullets();
 		

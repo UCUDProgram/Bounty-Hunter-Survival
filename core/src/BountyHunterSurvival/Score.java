@@ -5,6 +5,9 @@ public class Score {
 	private int zombiesKilled;
 	private double survivalTime;
 	
+	/*
+	 * Constructor for the Score Class
+	 */
 	public Score(){
 		damageInflicted = 0.0;
 		zombiesKilled = 0;
