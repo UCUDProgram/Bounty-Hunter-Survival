@@ -16,10 +16,11 @@ import com.badlogic.gdx.utils.XmlReader.Element;
 public class Mole {
 	private double xPosition,yPosition;
 	private int health;
-	private int direction;
+	public static int direction;
 	private List<Texture> playerImages;
 	private Texture playerImage;
 	private double moleScale;
+	private double moveDist = 10;
 	
 	public Mole(double xPos, double yPos){
 		xPosition = xPos;
@@ -27,7 +28,7 @@ public class Mole {
 		direction = 0;
 		health = 50;
 		playerImages= setPlayerImages();
-		moleScale = .25f;
+		moleScale = .15f;
 		setPlayerImage();
 		
 	}
@@ -48,14 +49,26 @@ public class Mole {
 		return playImg;
 	}
 
-//	public void updateXPos(){
-//		if()
-//	}
-//	
-//	public void updateYPos(){
-//		if()
-//	}
-//	
+	public void updateXPos(boolean hor){
+		if(hor)
+			xPosition += moveDist;
+		else
+			xPosition -= moveDist;
+	}
+	
+	public void updateYPos(boolean vert){
+		if(vert)
+			yPosition += moveDist;
+		else
+			yPosition -= moveDist;
+	}
+	
+	public void updateMoleImage(){
+		int newImgRef= direction;
+		Texture img = getPlayerImages().get(newImgRef);
+		setNewPlayerImage(img);
+	}
+	
 	
 //	Getters & Setters for Mole
 	public double getxPosition() {
@@ -86,10 +99,14 @@ public class Mole {
 		return playerImages;
 	}
 
+	public void setNewPlayerImage(Texture newImg) {
+		playerImage = newImg;
+	}
+
 	public void setPlayerImage() {
 		playerImage = getPlayerImages().get(getDirection());
 	}
-
+	
 	public Texture getPlayerImage() {
 		return playerImage;
 	}

@@ -1,38 +1,65 @@
 package BountyHunterSurvival;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.XmlReader;
+import com.badlogic.gdx.utils.XmlReader.Element;
+
 public class Bullet {
 	private double xPosition;
 	private double yPosition;
 	private double damage;
 	private int direction;
 	private boolean active;
-	private double bullSpeed, bullSpeedBase;
+	private double bullSpeed, bullSpeedBase, bulletScale;
+	private Texture bulletImage;
 	
 	public Bullet(double xPos, double yPos, int dir){
 		xPosition = xPos;
 		yPosition = yPos;
 		direction = dir;
+		bulletImage = setBulletImage();
 		damage = 30;
 		active = true;
 		bullSpeed = .30;
 		bullSpeedBase = 30;
+		bulletScale = .25f;
 	}
 
 	public void updateXPosition(){
 		if (direction == 0)
-			xPosition = getxPosition() + (bullSpeed * bullSpeedBase);
+			xPosition += (bullSpeed * bullSpeedBase);
 		if (direction == 1)
-			xPosition = getxPosition() - (bullSpeed * bullSpeedBase);
+			xPosition -= (bullSpeed * bullSpeedBase);
 	}
 	
 	public void updateYPosition(){
 		if (direction == 2)
-			yPosition = getyPosition() +  (bullSpeed * bullSpeedBase);
+			yPosition +=  (bullSpeed * bullSpeedBase);
 		if (direction == 3)
-			yPosition = getyPosition() -  (bullSpeed * bullSpeedBase);
+			yPosition -=  (bullSpeed * bullSpeedBase);
 	}
 	
-	
+	public Texture setBulletImage(){
+		List<Texture> bulletImg = new ArrayList <Texture>();
+		try{Element root = new XmlReader().parse(Gdx.files.internal("gameImages.xml"));
+		Element player = root.getChildByName("Bullet");
+		String[] directions = {"Right", "Left", "Up", "Down"};
+		for (int i = 0; i <4; i++){
+			Element playDir = player.getChildByName(directions[i]);
+			FileHandle file = Gdx.files.internal(playDir.getText());
+			bulletImg.add(new Texture(file));
+		}
+		}
+		catch(IOException e){
+		}
+		return bulletImg.get(getDirection());
+	}
 	
 // Getters & Setters for Bullet Properties
 	public double getxPosition() {
@@ -65,5 +92,14 @@ public class Bullet {
 
 	public void setActive(boolean active) {
 		active = active;
-	}	
+	}
+
+	public Texture getBulletImage() {
+		return bulletImage;
+	}
+
+	public double getBulletScale() {
+		return bulletScale;
+	}
+	
 }

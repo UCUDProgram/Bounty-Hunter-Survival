@@ -1,6 +1,7 @@
 package BountyHunterSurvival;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -15,7 +16,9 @@ public class Zombie {
 	private double movementSpeed,health,damage,zombieXPos,zombieYPos, moveDist  ;
 	private List<Texture> zombieImages;
 	private Texture zombieImage;
-	private int direction;
+	public static int direction;
+	private double zombieScale;
+	private boolean active;
 	
 	
 	
@@ -26,10 +29,12 @@ public class Zombie {
 		damage = setDamage(type);
 		direction = setDirection(startWall);
 		moveDist = setMoveDist(type);
-		setZombieImages(); 
+		zombieImages = setZombieImages(); 
 		zombieImage = setInitialImage();
 		zombieXPos = xPos;
 		zombieYPos = yPos;
+		zombieScale = .15f;
+		active = false;
 	}
 	
 	public String setName(int type){
@@ -108,7 +113,8 @@ public class Zombie {
 			return 2;
 	}
 	
-	public void setZombieImages(){
+	public List<Texture> setZombieImages(){
+			List<Texture> ZomImg = new ArrayList <Texture>();
 			try{Element root = new XmlReader().parse(Gdx.files.internal("gameImages.xml"));
 			Element zombie = root.getChildByName("Zombie");
 			Element zombieName = zombie.getChildByName(getName());
@@ -116,12 +122,22 @@ public class Zombie {
 			for (int i = 0; i <4; i++){
 				Element zombieDir = zombieName.getChildByName(directions[i]);
 				FileHandle file = Gdx.files.internal(zombieDir.getText());
-				zombieImages.add(new Texture(file));
+				ZomImg.add(new Texture(file));
 			}
 			}
 			catch(IOException e){
 			}
+			return ZomImg;
 		}
+	
+	
+	public void updateZombieMovement(){
+		int nextMove;
+		do{
+			nextMove = (int) (Math.random() * 4);
+		}while (nextMove == getDirection() );
+		setDirection(nextMove);	
+	}
 	
 	public Texture setInitialImage(){
 		return zombieImages.get(getDirection());
@@ -129,14 +145,15 @@ public class Zombie {
 	
 	
 	
-//	public double initialXPos(int wall){
-//		if( (wall == 1) || (wall == 3) )
-//			return (double) (Math.random() * screenWidth);
-//	}
-//	
-//	public double initialYPos(int wall){
-//		
-//	}
+	public void updateZombieImage(){
+		int newImgRef= direction;
+		Texture img = getZombieImages().get(newImgRef);
+		setNewZombieImage(img);
+	}
+	
+	public void setNewZombieImage(Texture newImg) {
+		zombieImage = newImg;
+	}
 	
 	public void updateXPosition(){
 		double xPos;
@@ -224,6 +241,18 @@ public class Zombie {
 
 	public double getMoveDist() {
 		return moveDist;
+	}
+
+	public double getZombieScale() {
+		return zombieScale;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 	

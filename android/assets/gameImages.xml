@@ -38,4 +38,10 @@
 	   <Down>Mole/Mole-Down.png</Down>
 	   <Stance>Mole/Mole-Stance.png</Stance> 
     </Mole>
+    <Bullet>
+        <Right>Bullet Images/Bullet-Right.png</Right>
+        <Left>Bullet Images/Bullet-Left.png</Left>
+        <Up>Bullet Images/Bullet-Up.png</Up>
+        <Down>Bullet Images/Bullet-Down.png</Down>
+    </Bullet>
 </root>
