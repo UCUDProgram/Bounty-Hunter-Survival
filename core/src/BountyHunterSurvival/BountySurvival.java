@@ -13,7 +13,7 @@ public class BountySurvival extends Game {
 	
 	private float[] screenSize;
 	private Screen tScreen, main, intro, game, score,current;
-	private String artist;
+	private String player;
 	
 	public BountySurvival(){
 	}
@@ -25,6 +25,7 @@ public class BountySurvival extends Game {
 		screenSize[1]=0;
 		screenSize[2]=0;
 		screenSize[3]=0;
+		setPlayer("Molle");
 		switchScreens(1);
 	}
 	
@@ -57,7 +58,7 @@ public void switchScreens(int next){
 		}
 		
 		// Game Screen
-		if(next==5){
+		if(next==4){
 			current = new BountyGame(this);
 			((BountyGame) current).create();
 			game = current;
@@ -66,5 +67,16 @@ public void switchScreens(int next){
 		
 		setScreen(current);
 	}
-	
+
+public String getPlayer() {
+	return player;
+}
+
+public void setPlayer(String player) {
+	this.player = player;
+}
+
+
+
+
 }

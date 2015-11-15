@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 	private BountySurvival BHGame;
+	private SpriteBatch batch;
+	
+	
 	
 	public BountyGame(BountySurvival game){
 		BHGame = game;
@@ -18,14 +21,18 @@ public class BountyGame implements Screen, InputProcessor, ApplicationListener {
 	
 	@Override
 	public void create () {
-	
+		batch = new SpriteBatch();
 	}
 
 	
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
+		batch.begin();
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		batch.end();
 	}	
 	
 	@Override
